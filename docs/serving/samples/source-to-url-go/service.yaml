@@ -10,7 +10,6 @@ spec:
         apiVersion: build.knative.dev/v1alpha1
         kind: Build
         spec:
-          serviceAccountName: build-bot
           source:
             git:
               url: https://github.com/mchmarny/simple-app.git
@@ -18,13 +17,12 @@ spec:
           template:
             name: kaniko
             arguments:
-            - name: IMAGE
-              value: docker.io/{DOCKER_USERNAME}/app-from-source:latest
-          timeout: 10m
+              - name: IMAGE
+                value: gcr.io/zhiminx-gke-dev/helloworld-src:latest
       revisionTemplate:
         spec:
           container:
-            image: docker.io/{DOCKER_USERNAME}/app-from-source:latest 
+            image: gcr.io/zhiminx-gke-dev/helloworld-src:latest
             imagePullPolicy: Always
             env:
             - name: SIMPLE_MSG
