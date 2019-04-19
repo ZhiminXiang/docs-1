@@ -9,7 +9,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: docker.io/{username}/helloworld-go
+            image: github.com/knative/docs/serving/samples/helloworld-go
             env:
             - name: TARGET
               value: "Go Sample v1"
