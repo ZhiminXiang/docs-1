@@ -1,0 +1,33 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Configuration
+metadata:
+  name: helloworld-go-local
+  namespace: default
+spec:
+  revisionTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      container:
+        env:
+        - name: TARGET
+          value: Go Sample v1
+        image: github.com/knative/docs/serving/samples/helloworld-go
+        name: ""
+        resources: {}
+      timeoutSeconds: 300
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Route
+metadata:
+  name: helloworld-go-local
+  namespace: default
+  labels:
+    serving.knative.dev/visibility: cluster-local
+spec:
+  traffic:
+  - tag: current
+    configurationName: helloworld-go-local
+    latestRevision: true
+    percent: 100
+---
